@@ -6,18 +6,18 @@ class Solution {
 
         for(int i=0;i<word.length();i++) {
             boolean isUpperCase = Character.isUpperCase(word.charAt(i));
-            if(i==0 && isUpperCase) {
-                firstLetterUpper = true;
+			/* Check whether the first letter is upper case*/
+            if(i==0) {
+                firstLetterUpper = isUpperCase;
+            }			
+            else if(i==1) {
+				/*if the first letter is upper case and second letter is lowercase that means title case */
+                titleCase = !isUpperCase && firstLetterUpper;
+				/*Case 3: when first and second letter is upper case */
+				wholeStringUpper = isUpperCase && firstLetterUpper;
             }
-            else if(i==1 && !isUpperCase && firstLetterUpper) {
-                titleCase = true;
-            }
-            else if(i>0 && isUpperCase && firstLetterUpper && !titleCase && !wholeStringUpper) {
-                wholeStringUpper = true;
-            }
-            else if(i>0 && 
-                    (((!firstLetterUpper || titleCase) && isUpperCase) 
-                    || (!isUpperCase && wholeStringUpper))) {
+            else if(((!firstLetterUpper || titleCase) && isUpperCase) 
+                    || (!isUpperCase && wholeStringUpper)) {
                 return false;
             }          
 
